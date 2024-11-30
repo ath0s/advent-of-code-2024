@@ -1,0 +1,52 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      contents: write
+    steps:
+      - name: 🚚 Checkout
+        uses: actions/checkout@v4
+
+      - name: ☕️ Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: 🐘 Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          dependency-graph: generate-and-submit
+          add-job-summary: on-failure
+          cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+
+      - name: 🛠 Build
+        run: ./gradlew build --scan
+
+      - name: 💹 Publish Test Report
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: 'Test Results'
+          path: '**/build/test-results/test/TEST-*.xml'
+          reporter: 'java-junit'
+          list-suites: 'failed'
+          list-tests: 'failed'
+          fail-on-empty: 'false'
+
+      - name: 📋 Upload build reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: build-reports
+          path: build/reports/
