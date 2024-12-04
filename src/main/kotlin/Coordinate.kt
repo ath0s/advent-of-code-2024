@@ -24,3 +24,4 @@ fun Coordinate.right() =
 
 fun manhattanDistance(c1: Coordinate, c2: Coordinate): Int =
     abs(c1.y - c2.y) + abs(c1.x - c2.x)
+

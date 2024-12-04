@@ -35,6 +35,9 @@ internal inline fun <reified T> String.parseMatrix(charTransformer: (Char) -> T)
         .map { it.map(charTransformer).toTypedArray() }
         .toTypedArray()
 
+fun Path.parseMatrix() =
+    parseMatrix { it }
+
 fun String.parseMatrix() =
     parseMatrix { it }
 
@@ -155,6 +158,14 @@ operator fun <T> Matrix<T>.get(coordinate: Coordinate) =
 operator fun <T> Matrix<T>.set(coordinate: Coordinate, value: T) {
     this[coordinate.y][coordinate.x] = value
 }
+
+fun <T> Matrix<T>.getValue(coordinate: Coordinate) =
+    try {
+        this[coordinate]
+    } catch (_: IndexOutOfBoundsException) {
+        null
+    }
+
 fun <T> Matrix<T>.switch(from: Coordinate, to: Coordinate) {
     val old = this[to]
     this[to] = this[from]
