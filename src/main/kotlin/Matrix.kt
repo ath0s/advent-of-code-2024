@@ -87,11 +87,11 @@ fun <T> Matrix<T>.print(toChar: (T) -> Char, highlight: (Coordinate) -> Boolean)
         println()
     }
 
-fun <T> Matrix<T>.print(highlight: (Coordinate) -> Boolean) =
+fun <T> Matrix<T>.print(marker: T? = null, highlight: (Coordinate) -> Boolean) =
     forEachIndexed { y: Int, row: Array<T> ->
         row.forEachIndexed { x, value ->
             if (highlight(Coordinate(x, y))) {
-                print("$WHITE_BOLD_BRIGHT$value$RESET")
+                print("$WHITE_BOLD_BRIGHT${marker ?: value}$RESET")
             } else {
                 print("$value")
             }
