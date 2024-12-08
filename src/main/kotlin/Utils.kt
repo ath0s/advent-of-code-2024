@@ -43,6 +43,9 @@ fun <T> Set<T>.filter(predicate: (T) -> Boolean): Set<T> =
 fun <K, V> Iterable<Pair<K, V>>.toMutableMap() =
     toMap(mutableMapOf())
 
+fun <T> List<T>.allPairs(): List<Pair<T, T>> =
+    dropLast(1).flatMapIndexed { index, element -> drop(index + 1).map { element to it } }
+
 private fun String.asResourceUrl() =
     Thread.currentThread().contextClassLoader.getResource(this)
 

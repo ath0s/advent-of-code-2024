@@ -8,7 +8,13 @@ data class Coordinate(
 }
 
 operator fun Coordinate.plus(other: Coordinate) =
-    copy(x = x + other.x, y = y + other.y)
+    Coordinate(x + other.x, y + other.y)
+
+operator fun Coordinate.minus(other: Coordinate) =
+    Coordinate(x - other.x, y - other.y)
+
+operator fun Coordinate.times(factor: Int) =
+    Coordinate(x * factor, y * factor)
 
 fun Coordinate.up() =
     copy(y = y - 1)
