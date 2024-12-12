@@ -19,6 +19,10 @@ enum class Direction(private val coordinate: Coordinate) {
 
     fun move(coordinate: Coordinate) =
         coordinate + this.coordinate
+
+    companion object {
+        val CARDINAL = listOf(NORTH, EAST, SOUTH, WEST)
+    }
 }
 
 infix fun Coordinate.move(direction: Direction) =

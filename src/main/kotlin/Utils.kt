@@ -49,7 +49,6 @@ fun <T> List<T>.allPairs(): List<Pair<T, T>> =
 private fun String.asResourceUrl() =
     Thread.currentThread().contextClassLoader.getResource(this)
 
-
 fun Iterable<Long>.lcm(): Long  =
     reduce(::lcm)
 
