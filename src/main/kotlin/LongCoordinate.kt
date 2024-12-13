@@ -10,3 +10,5 @@ data class LongCoordinate(
         abs(x - other.x) + abs(y - other.y)
 }
 
+operator fun LongCoordinate.plus(other: LongCoordinate) =
+    LongCoordinate(x + other.x, y + other.y)
