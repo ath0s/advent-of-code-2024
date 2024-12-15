@@ -28,6 +28,9 @@ enum class Direction(private val coordinate: Coordinate) {
 infix fun Coordinate.move(direction: Direction) =
     direction.move(this)
 
+infix operator fun Coordinate.plus(direction: Direction) =
+    direction.move(this)
+
 fun Direction.turn90DegreesRight() =
     when (this) {
         NORTH_WEST -> NORTH_EAST
